@@ -17,8 +17,8 @@ export default function RootLayout({children}) {
             <head>
                 <title> HOLA SAT APP</title>
             </head>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <main>{children}</main>
+            <body class = "min-h-screen" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+                {children}
             </body>
         </html>
     )
