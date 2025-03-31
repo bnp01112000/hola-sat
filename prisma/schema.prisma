@@ -14,10 +14,11 @@ datasource db {
 }
 
 model User {
-  id       String     @id @default(cuid())
-  username String     @unique
-  password String
-  tests    UserTest[]
+  id         String       @id @default(cuid())
+  username   String       @unique
+  password   String
+  tests      UserTest[]
+  vocabulary Vocabulary[]
 }
 
 model Test {
@@ -66,6 +67,17 @@ model UserAnswer {
   questionId String
 
   selectedAnswer String // e.g. "C"
+}
+
+model Vocabulary {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  word        String
+  forgetCount Int    @default(0)
+
+  @@unique([userId, word]) // Ensures unique word per user
 }
 
 enum TestStatus {

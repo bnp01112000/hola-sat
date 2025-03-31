@@ -35,9 +35,12 @@ export default function ProfilePage() {
                 >
                     View Testing History
                 </Link>
-                <button className="bg-black border border-cyan-500 rounded-xl p-6 text-center hover:bg-cyan-900/10 transition">
-                    <span className="text-lg font-semibold">Practice Vocabulary</span>
-                </button>
+                <Link
+                    href="/main/vocabulary"
+                    className="bg-black border border-cyan-500 rounded-xl p-6 text-center hover:bg-cyan-900/10 transition font-semibold text-cyan-300"
+                >
+                    Practice Vocabulary
+                </Link>
                 <button className="bg-black border border-cyan-500 rounded-xl p-6 text-center hover:bg-cyan-900/10 transition">
                     <span className="text-lg font-semibold">Practice Reading / Grammar</span>
                 </button>
