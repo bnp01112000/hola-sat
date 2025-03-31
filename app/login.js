@@ -14,7 +14,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("previous");
     const res = await signIn('credentials', {
       username,
       password,
