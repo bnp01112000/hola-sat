@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Providers from './providers';
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -11,14 +12,16 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-export default function RootLayout({children}) {
+export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
                 <title> HOLA SAT APP</title>
             </head>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                {children}
+                <Providers>
+                    {children}
+                </Providers>
             </body>
         </html>
     )
