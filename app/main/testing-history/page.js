@@ -22,7 +22,7 @@ export default function TestingHistoryPage() {
                     setUnfinishedTests(data.unfinished);
                 });
         }
-    }, [status]);
+    }, [status, router]);
 
     return (
         <div className="min-h-screen bg-black text-cyan-300 p-8">
