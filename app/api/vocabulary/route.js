@@ -62,3 +62,29 @@ export async function POST(req) {
 
   return new Response(JSON.stringify({ message, updatedWords }));
 }
+
+export async function PATCH(req) {
+  const session = await getServerSession(authOptions);
+  if (!session) return new Response('Unauthorized', { status: 401 });
+
+  const { id, meaning, importance } = await req.json();
+
+  const updated = await prisma.vocabulary.update({
+    where: { id },
+    data: {
+      meaning: meaning ?? undefined,
+      importance: importance ?? undefined,
+    },
+  });
+
+  const user = await prisma.user.findUnique({
+    where: { username: session.user.name },
+  });
+
+  const updatedWords = await prisma.vocabulary.findMany({
+    where: { userId: user.id },
+    orderBy: { word: 'asc' },
+  });
+
+  return new Response(JSON.stringify({ updatedWords }));
+}

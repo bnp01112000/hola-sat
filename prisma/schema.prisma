@@ -76,7 +76,8 @@ model Vocabulary {
 
   word        String
   forgetCount Int    @default(0)
-
+  meaning      String?  // new, nullable
+  importance   Int?     // new, nullable or default(1)
   @@unique([userId, word]) // Ensures unique word per user
 }
 
