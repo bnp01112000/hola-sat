@@ -43,6 +43,16 @@ export default function VocabularyPage() {
     setFlipped(prev => ({ ...prev, [id]: false }));
   };
 
+  const handleDelete = async (id) => {
+    const res = await fetch('/api/vocabulary', {
+      method: 'DELETE',
+      body: JSON.stringify({ id }),
+    });
+  
+    const data = await res.json();
+    setWords(data.updatedWords);
+  };
+
   return (
     <div className="min-h-screen bg-black text-cyan-300 p-8">
       <h1 className="text-4xl font-bold mb-10 text-center">My Vocabulary</h1>
@@ -78,6 +88,16 @@ export default function VocabularyPage() {
                 <div className="text-right">
                   {entry.importance && <p className="text-sm">⭐ Importance: {entry.importance}</p>}
                   <p className="text-sm text-gray-400">Forget: {entry.forgetCount}</p>
+                  {/* ❌ Delete Button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(entry.id);
+                    }}
+                    className="text-red-400 text-xs mt-1 hover:text-red-600"
+                  >
+                    ❌
+                  </button>
                 </div>
               </div>
             ) : (
