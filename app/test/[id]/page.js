@@ -61,13 +61,19 @@ export default function TestPage() {
                                     value={opt}
                                     checked={answers[q.id] === opt}
                                     onChange={(e) => setAnswers({ ...answers, [q.id]: e.target.value })}
+                                    disabled={!!q.selectedAnswer} // <-- Disable if already answered
                                 />
                                 <span className="ml-1">{opt}</span>
                             </label>
                         ))}
                     </div>
 
-                    {!submitted[q.id] && submitted[q.id] !== false ? (
+                    {q.selectedAnswer ? (
+                        <div className="mt-2">
+                            <p className="text-sm">✅ Your answer: <span className="font-bold">{q.selectedAnswer}</span></p>
+                            <p className="text-sm">🎯 Correct answer: <span className="font-bold text-green-400">{q.correctAnswer}</span></p>
+                        </div>
+                    ) : !submitted[q.id] && submitted[q.id] !== false ? (
                         <button
                             onClick={() => handleSubmit(q.id)}
                             className="mt-2 px-4 py-2 bg-cyan-500 text-black rounded hover:bg-cyan-600"

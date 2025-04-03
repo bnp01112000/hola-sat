@@ -38,6 +38,7 @@ export async function GET(req) {
   const questions = userTest.test.questions.map((q) => ({
     id: q.id,
     number: q.number,
+    correctAnswer: q.correctAnswer,         // ✅ Add this
     selectedAnswer: answeredMap[q.id] || null,
   }));
 
