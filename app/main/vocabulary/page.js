@@ -86,6 +86,7 @@ export default function VocabularyPage() {
                   <p className="text-md italic">Meaning: {entry.meaning}</p>
                 ) : (
                   <input
+                    onClick={(e) => e.stopPropagation()} // prevents flipping
                     placeholder="Enter meaning..."
                     className="w-full p-2 mt-1 mb-2 rounded bg-gray-800 border border-cyan-300 text-white"
                     onChange={(e) => setEditFields(prev => ({
@@ -100,6 +101,7 @@ export default function VocabularyPage() {
 
                 {entry.importance ? null : (
                   <select
+                    onClick={(e) => e.stopPropagation()} // prevents flipping
                     className="w-full p-2 mb-2 rounded bg-gray-800 border border-cyan-300 text-white"
                     defaultValue=""
                     onChange={(e) => setEditFields(prev => ({
