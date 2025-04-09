@@ -75,10 +75,12 @@ model Vocabulary {
   user   User   @relation(fields: [userId], references: [id])
   userId String
 
-  word        String
-  forgetCount Int     @default(0)
-  meaning     String? // new, nullable
-  importance  Int? // new, nullable or default(1)
+  word             String
+  forgetCount      Int             @default(0)
+  meaning          String? // new, nullable
+  importance       Int? // new, nullable or default(1)
+  DailyChallenge   DailyChallenge? @relation(fields: [dailyChallengeId], references: [id])
+  dailyChallengeId String?
 
   @@unique([userId, word]) // Ensures unique word per user
 }
@@ -88,10 +90,11 @@ model DailyChallenge {
   user   User   @relation(fields: [userId], references: [id])
   userId String
 
-  date      DateTime
-  score     Int
-  total     Int // e.g. 40
-  createdAt DateTime @default(now())
+  date       DateTime
+  score      Int
+  total      Int // e.g. 40
+  createdAt  DateTime     @default(now())
+  wrongWords Vocabulary[]
 }
 
 enum TestStatus {

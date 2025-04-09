@@ -25,12 +25,14 @@ export async function GET() {
   const raw = await prisma.dailyChallenge.findMany({
     where: { userId: user.id },
     orderBy: { date: 'desc' },
+    include: { wrongWords: true }, // Include wrongWords relation
   });
 
   const records = raw.map(r => ({
     date: format(r.date, 'yyyy-MM-dd'),
     score: r.score,
     total: 40,
+    wrongWords: r.wrongWords.map(w => w.word),
   }));
 
   return new Response(JSON.stringify({ records, days }));

@@ -43,9 +43,10 @@ export default function TestingHistoryPage() {
                             key={i}
                             className="border border-cyan-300 rounded-xl px-6 py-4 mb-4 flex justify-between items-center hover:bg-cyan-900/10 transition"
                         >
-                            <div>
-                                <h3 className="font-semibold">{test.title}</h3>
-                            </div>
+                            <Link href={`/test/${test.id}`} className="text-cyan-300 hover:underline">
+                                <h3 className="font-semibold text-lg">{test.title}</h3>
+                            </Link>
+
                             <div className="text-right">
                                 <p className="text-2xl font-bold">{test.score}</p>
                                 <p className="text-sm text-gray-400">{formatDate(test.completedAt)}</p>
