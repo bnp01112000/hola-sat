@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function VocabularyPage() {
   const [words, setWords] = useState([]);
   const [newWord, setNewWord] = useState('');
   const [message, setMessage] = useState('');
-  const [flipped, setFlipped] = useState({}); // track which words are flipped
+  const [flipped, setFlipped] = useState({});
   const [editFields, setEditFields] = useState({});
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function VocabularyPage() {
       method: 'DELETE',
       body: JSON.stringify({ id }),
     });
-  
+
     const data = await res.json();
     setWords(data.updatedWords);
   };
@@ -56,6 +57,22 @@ export default function VocabularyPage() {
   return (
     <div className="min-h-screen bg-black text-cyan-300 p-8">
       <h1 className="text-4xl font-bold mb-10 text-center">My Vocabulary</h1>
+
+      {/* Daily Challenge Buttons */}
+      <div className="mb-10 max-w-md mx-auto flex flex-col sm:flex-row gap-4 justify-center">
+        <Link
+          href="/main/daily-challenge"
+          className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded text-center font-semibold"
+        >
+          Start Daily Challenge
+        </Link>
+        <Link
+          href="/main/daily-challenge/records"
+          className="flex-1 py-2 px-4 bg-gray-700 hover:bg-gray-800 text-white rounded text-center font-semibold"
+        >
+          View Daily Challenge Records
+        </Link>
+      </div>
 
       {/* Add Word */}
       <div className="mb-8 max-w-md mx-auto">
@@ -88,7 +105,6 @@ export default function VocabularyPage() {
                 <div className="text-right">
                   {entry.importance && <p className="text-sm">⭐ Importance: {entry.importance}</p>}
                   <p className="text-sm text-gray-400">Forget: {entry.forgetCount}</p>
-                  {/* ❌ Delete Button */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -106,7 +122,7 @@ export default function VocabularyPage() {
                   <p className="text-md italic">Meaning: {entry.meaning}</p>
                 ) : (
                   <input
-                    onClick={(e) => e.stopPropagation()} // prevents flipping
+                    onClick={(e) => e.stopPropagation()}
                     placeholder="Enter meaning..."
                     className="w-full p-2 mt-1 mb-2 rounded bg-gray-800 border border-cyan-300 text-white"
                     onChange={(e) => setEditFields(prev => ({
@@ -121,7 +137,7 @@ export default function VocabularyPage() {
 
                 {entry.importance ? null : (
                   <select
-                    onClick={(e) => e.stopPropagation()} // prevents flipping
+                    onClick={(e) => e.stopPropagation()}
                     className="w-full p-2 mb-2 rounded bg-gray-800 border border-cyan-300 text-white"
                     defaultValue=""
                     onChange={(e) => setEditFields(prev => ({
