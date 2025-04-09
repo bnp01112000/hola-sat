@@ -13,7 +13,13 @@ export async function GET() {
   });
 
   const allWords = await prisma.vocabulary.findMany({
-    where: { userId: user.id },
+    where: {
+      userId: user.id,
+      NOT: [
+        { meaning: null },
+        { importance: null }
+      ]
+    },
   });
 
   // Filter importance 3
