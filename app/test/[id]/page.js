@@ -10,7 +10,7 @@ export default function TestPage() {
     const { id } = useParams();
     const [questions, setQuestions] = useState([]);
     const [title, setTitle] = useState('');
-    const router = useRouter(); // 🔥 you'll need to import this
+    const router = useRouter(); 
 
     const handleFinishTest = async () => {
         await fetch('/api/finish-test', {

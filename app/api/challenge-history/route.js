@@ -16,7 +16,7 @@ export async function GET() {
   // Fetch last 7 days
   const today = new Date();
   const days = [];
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 6; i++) {
     const d = new Date(today);
     d.setDate(d.getDate() - i);
     days.push(format(d, 'yyyy-MM-dd'));

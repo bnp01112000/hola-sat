@@ -26,31 +26,40 @@ export default function ChallengeRecordsPage() {
 
       <div className="max-w-xl mx-auto space-y-4">
         {days.map((date) => {
-          const record = records.find(r => r.date === date);
+          const dayRecords = records.filter(r => r.date === date);
           const isExpanded = expanded[date];
           return (
             <div
               key={date}
-              onClick={() => record && toggleExpanded(date)}
+              onClick={() => dayRecords.length > 0 && toggleExpanded(date)}
               className={`p-4 border border-cyan-500 rounded cursor-pointer transition hover:bg-cyan-900/10`}
             >
               <p className="font-semibold">{date}</p>
-              {record ? (
+              {dayRecords.length > 0 ? (
                 <>
-                  <p className="text-green-400">✅ Score: {record.score}/{record.total}</p>
-                  {isExpanded && record.wrongWords.length > 0 && (
-                    <div className="mt-2 text-sm text-red-300">
-                      <p className="mb-1">❌ Wrong words:</p>
-                      <ul className="list-disc list-inside space-y-1">
-                        {record.wrongWords.map((word, i) => (
-                          <li key={i}>{word}</li>
-                        ))}
-                      </ul>
+                  {dayRecords.map((record, index) => (
+                    <div key={index} className="mt-2 pl-2 border-l border-cyan-300">
+                      <p className="text-green-400">
+                        ✅ Score: {record.score}/{record.total}
+                      </p>
+                      {isExpanded && (
+                        <>
+                          {record.wrongWords.length > 0 ? (
+                            <div className="mt-1 text-sm text-red-300">
+                              <p className="mb-1">❌ Wrong words:</p>
+                              <ul className="list-disc list-inside space-y-1">
+                                {record.wrongWords.map((word, i) => (
+                                  <li key={i}>{word}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : (
+                            <p className="mt-1 text-sm text-green-300">🎉 No mistakes!</p>
+                          )}
+                        </>
+                      )}
                     </div>
-                  )}
-                  {isExpanded && record.wrongWords.length === 0 && (
-                    <p className="mt-2 text-sm text-green-300">🎉 No mistakes!</p>
-                  )}
+                  ))}
                 </>
               ) : (
                 <p className="text-red-400">❌ No challenge completed</p>

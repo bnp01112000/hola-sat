@@ -52,24 +52,38 @@ export async function POST(req) {
   });
 
   let correct = 0;
+  const wrongWordIds = [];
+
   for (const word of words) {
     if (matches[word.id]) {
-      if (matches[word.id].trim().toLowerCase() === (word.meaning || '').trim().toLowerCase()) {
+      const userAnswer = matches[word.id].trim().toLowerCase();
+      const actualMeaning = (word.meaning || '').trim().toLowerCase();
+
+      if (userAnswer === actualMeaning) {
         correct++;
       } else {
+        // Mark as forgotten
         await prisma.vocabulary.update({
           where: { id: word.id },
           data: { forgetCount: word.forgetCount + 1 },
         });
+
+        // Track wrong word
+        wrongWordIds.push(word.id);
       }
     }
   }
 
+  // ✅ Create DailyChallenge with wrongWords connected
   await prisma.dailyChallenge.create({
     data: {
       userId: user.id,
       date: today,
       score: correct,
+      total: Object.keys(matches).length,
+      wrongWords: {
+        connect: wrongWordIds.map(id => ({ id })),
+      },
     },
   });
 

@@ -36,9 +36,17 @@ export default function DailyChallengePage() {
       method: 'POST',
       body: JSON.stringify({ matches }),
     });
+    /** 
+    if (!res.ok) {
+      const text = await res.text(); // Try reading it as plain text
+      console.error('Server Error:', text);
+      alert(`Failed to submit: ${res.status} ${text}`);
+      return;
+    }
+    */
     const result = await res.json();
     setSubmitted(true);
-    alert(`Challenge submitted! You scored ${result.correct}/${result.total}`);
+    alert(`Challenge submitted! You scored ${result.correct}/40`);
     router.push('/main/vocabulary');
   };
 
