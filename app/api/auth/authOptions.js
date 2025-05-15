@@ -17,6 +17,7 @@ export const authOptions = {
         });
 
         if (!user || user.password !== credentials.password) {
+          console.log("Reached here")
           return null;
         }
 

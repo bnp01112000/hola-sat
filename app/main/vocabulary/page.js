@@ -56,7 +56,7 @@ export default function VocabularyPage() {
 
   return (
     <div className="min-h-screen bg-black text-cyan-300 p-8">
-      <h1 className="text-4xl font-bold mb-10 text-center">My Vocabulary</h1>
+      <h1 className="text-4xl font-bold mb-10 text-center">My Vocabulary (Total: {words.length})</h1>
 
       {/* Daily Challenge Buttons */}
       <div className="mb-10 max-w-md mx-auto flex flex-col sm:flex-row gap-4 justify-center">
