@@ -11,11 +11,12 @@ export default function TestPage() {
     const [questions, setQuestions] = useState([]);
     const [title, setTitle] = useState('');
     const router = useRouter(); 
+    const [correct, setCorrect] = useState(0); 
 
     const handleFinishTest = async () => {
         await fetch('/api/finish-test', {
             method: 'POST',
-            body: JSON.stringify({ testId: id }),
+            body: JSON.stringify({ testId: id, score: correct }),
         });
 
         router.push('/main'); // back to profile page
@@ -43,6 +44,7 @@ export default function TestPage() {
         });
         const result = await res.json();
         setSubmitted((prev) => ({ ...prev, [qId]: result.correct }));
+        setCorrect((prev) => (result.correct ? prev + 1 : prev)); // Update correct answers count
     };
 
     return (

@@ -11,7 +11,7 @@ export async function POST(req) {
   }
 
   const body = await req.json();
-  const { testId } = body;
+  const { testId, score } = body;
 
   const user = await prisma.user.findUnique({
     where: { username: session.user.name },
@@ -33,6 +33,7 @@ export async function POST(req) {
     data: {
       status: 'FINISHED',
       completedAt: new Date(),
+      score
     },
   });
 
