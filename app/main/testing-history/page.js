@@ -48,7 +48,7 @@ export default function TestingHistoryPage() {
                             </Link>
 
                             <div className="text-right">
-                                <p className="text-2xl font-bold">{test.score}</p>
+                                <p className="text-2xl text-gray-500 font-bold">{test.score}</p>
                                 <p className="text-sm text-gray-400">{formatDate(test.completedAt)}</p>
                             </div>
                         </div>
